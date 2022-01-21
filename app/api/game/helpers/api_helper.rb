@@ -1,6 +1,10 @@
 module Game
   module Helpers
     module ApiHelper
+      def room
+        @room ||= Room.find(params[:id])
+      end
+
       def current_user
         if token.blank?
           @current_user = nil
@@ -17,7 +21,6 @@ module Game
 
       def authenticate!
         if token.blank?
-          # error!({ message: 'USER_NOT_AUTHORIZED' }, 401)
           raise Shared::Exceptions::InvalidJwt
         else
           current_user
@@ -26,7 +29,6 @@ module Game
 
       def token
         if headers['Authorization'].blank?
-          # error!({ message: 'INVALID_TOKEN' }, 401)
           nil
         else
           JWT.decode(headers['Authorization'], ENV['JWT_SECRET'])

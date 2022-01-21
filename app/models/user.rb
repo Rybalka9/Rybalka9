@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_secure_password :validations => false
+  has_one :users_room
+  has_one :room, through: :users_room
+
   validates :email, presence: true, uniqueness: true, format:
             { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/,
               message: "Please enter the correct Email" }

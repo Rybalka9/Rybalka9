@@ -56,7 +56,7 @@ describe Game::Resources::Authentications do
         expect_status 404
         expect_json_keys(:message)
         expect_json_types(message: :string)
-        expect_json(message: 'INVALID_PASSWORD')
+        expect_json(message: 'RECORD_NOT_FOUND')
       end
     end
   end

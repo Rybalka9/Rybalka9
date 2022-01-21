@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_122429) do
+ActiveRecord::Schema.define(version: 2022_01_19_095121) do
 
   create_table "articles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "owner_id", null: false
+    t.index ["owner_id"], name: "index_rooms_on_owner_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -27,4 +35,16 @@ ActiveRecord::Schema.define(version: 2022_01_13_122429) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "users_rooms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "room_id"
+    t.index ["room_id"], name: "index_users_rooms_on_room_id"
+    t.index ["user_id"], name: "index_users_rooms_on_user_id"
+  end
+
+  add_foreign_key "rooms", "users", column: "owner_id"
+  add_foreign_key "users_rooms", "rooms"
+  add_foreign_key "users_rooms", "users"
 end

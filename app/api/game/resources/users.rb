@@ -33,6 +33,7 @@ module Game
         route_param :id, type: Integer do
           desc 'Show a user'
           get do
+            can? :read, User
             present user, with: Game::Entities::User
           end
 

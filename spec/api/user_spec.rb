@@ -57,6 +57,7 @@ describe Game::Resources::Users do
         expect_status(422)
         expect_json_keys(:message)
         expect_json_types(message: :string)
+        expect_json(message: 'RECORD_INVALID')
       end
     end
   end

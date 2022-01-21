@@ -25,10 +25,6 @@ module Game
           end
           payload["id"]
         end
-
-        def user
-
-        end
       end
 
       resource :authentications do
